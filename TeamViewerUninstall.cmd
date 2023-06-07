@@ -1,9 +1,16 @@
-Get script directory where script is being ran.
-• Get the current time stamp when the script is being ran.
-• Test to see if logfile exists, if not, create it in scriptdir\TeamViewerRemoval.log
-• Test to see if this path exists: C:\Program Files (x86)\TeamViewer\uninstall.exe
-• if the path doesn't exist, log the timestamp, the hostname, and the path of the file that doesn't exist.
-∘ exit the script
-• If it does exist, run the uninstall.exe /S and wait for it to exit.
-∘ Once it's done, log the timestamp, the hostname, and state "Uninstalled" to the logfile
-• 
+:: A simple script to remove TeamViewer from our Staff Domain.
+:: Created by Michael Free 2023 
+
+:: Get the directory where this script is located
+
+:: Get the current timestamp
+
+:: Set the logfile location.
+
+:: Test to see if C:\Program Files (x86)\Teamviewer\uninstall.exe exists
+
+:: If it doesn't exist, log this to a file. Including the Hostname, Timestamp, and "TV Not Found" and exit the script
+
+:: if it does exist, run uninstall.exe /S and wait for it to exit.  Then log it to the file.
+:: :: Display a message Please Reboot your computer
+
