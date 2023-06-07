@@ -1,16 +1,38 @@
-:: A simple script to remove TeamViewer from our Staff Domain.
+:: A simple script to remove TeamViewer silently.
+:: 
 :: Created by Michael Free 2023 
+@echo off
+setlocal
 
 :: Get the directory where this script is located
-
-:: Get the current timestamp
+set "SCRIPT_PATH=%~dp0"
 
 :: Set the logfile location.
+set "LOGFILE=%SCRIPT_PATH%TeamViewerUninstall.log"
 
-:: Test to see if C:\Program Files (x86)\Teamviewer\uninstall.exe exists
+:: Set the location of TeamViewer Uninstall
+set "TEAMVIEWER_REMOVE=C:\Program Files (x86)\Teamviewer\uninstall.exe"
 
-:: If it doesn't exist, log this to a file. Including the Hostname, Timestamp, and "TV Not Found" and exit the script
+:: Get the hostname of the computer this is running on
+set "HOSTNAME=%COMPUTERNAME%"
 
-:: if it does exist, run uninstall.exe /S and wait for it to exit.  Then log it to the file.
-:: :: Display a message Please Reboot your computer
+:: Get the current timestamp
+set "CURRENT_DATE=%DATE%"
+set "CURRENT_TIME=%TIME%"
+set "CURRENT_DATE_TIME=%CURRENT_DATE: =%%CURRENT_TIME: =%"
 
+:: Test to see if TEAMVIEWER_REMOVE exists.
+if exist "%TEAMVIEWER_REMOVE%" (
+    :: TeamViewer uninstall exists, run it.
+    start /wait "" "%TEAMVIEWER_REMOVE%" /S
+    :: Log it's uninstallation
+    echo %HOSTNAME%, %CURRENT_DATE_TIME%, UNINSTALLED >> %LOGFILE%
+    exit 0
+
+) else (
+    :: Log that TeamViewer uninstall file does not exist.
+    echo %HOSTNAME%, %CURRENT_DATE_TIME%, NOT INSTALLED >> %LOGFILE%
+    exit 0
+)
+
+endlocal
